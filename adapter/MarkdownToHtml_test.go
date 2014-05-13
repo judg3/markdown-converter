@@ -6,26 +6,27 @@ import (
 
 func TestConvert(t *testing.T) {
 	text := `#test
-##test2
+  ##test2
 ####test4
 ###test3`
 	//text = `     #test`
-	result := "<h1>test</h1><h2>test</h2><h4>test</h4><h3>test</h3>"
-	if Convert(text) != result {
-		t.Errorf("expected"+result+", got", text)
+	expectedResult := "<h1>test</h1>\n<h2>test2</h2>\n<h4>test4</h4>\n<h3>test3</h3>"
+	result := Convert(text)
+
+	if expectedResult != result {
+		t.Errorf("expected"+expectedResult+", got: ", result)
 	}
 }
 
 func TestReplaceHedding1(t *testing.T) {
 
-	text := `#test
-			##test2
-####test4
-###test3`
+	text := "#test\n##test2\n####test4\n###test3"
 	replaceHedding1(&text)
 
-	if text != "<h1>test</h1>##test\n####test\n###test" {
-		t.Errorf("expected <h1>test</h1>, got", text)
+	expectedResult := "<h1>test</h1>\n##test2\n####test4\n###test3"
+
+	if text != expectedResult {
+		t.Errorf("expected "+expectedResult+", got: ", text)
 	}
 }
 
