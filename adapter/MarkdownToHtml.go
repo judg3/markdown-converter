@@ -11,6 +11,8 @@ func Convert(Text string) string {
 	replaceHedding3(&Text)
 	replaceHedding2(&Text)
 	replaceHedding1(&Text)
+	replaceItalic(&Text)
+	replaceBold(&Text)
 
 	return Text
 }
@@ -61,4 +63,14 @@ func replaceHedding5(Text *string) {
 func replaceHedding6(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{6}([^#].*?)$`)
 	*Text = reg.ReplaceAllString(*Text, "<h6>$1</h6>")
+}
+
+func replaceBold(Text *string) {
+	reg := regexp.MustCompile(`\*([^\*].*?[^\*])\*`)
+	*Text = reg.ReplaceAllString(*Text, "<strong>$1</strong>")
+}
+
+func replaceItalic(Text *string) {
+	reg := regexp.MustCompile(`\*\*([^\*].*?[^\*])\*\*`)
+	*Text = reg.ReplaceAllString(*Text, "<em>$1</em>")
 }
