@@ -18,7 +18,7 @@ func Convert(Text string) string {
 }
 
 /**
-*	Replace <h1> test </h1>
+*	Replace "* test *"  => "<h1>test</h1>"
  */
 func replaceHedding1(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#([^#].*?)$`)
@@ -26,7 +26,7 @@ func replaceHedding1(Text *string) {
 }
 
 /**
-*	Replace <h2> test </h2>
+*	Replace "**test"  =>  "<h2>test</h2>"
  */
 func replaceHedding2(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{2}([^#].*?)$`)
@@ -34,7 +34,7 @@ func replaceHedding2(Text *string) {
 }
 
 /**
-*	Replace <h3> test </h3>
+*	Replace "***test" => "<h3>test</h3>"
  */
 func replaceHedding3(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{3}([^#].*?)$`)
@@ -42,7 +42,7 @@ func replaceHedding3(Text *string) {
 }
 
 /**
-*	Replace <h4> test </h4>
+*	Replace "****test" => "<h4>test</h4>"
  */
 func replaceHedding4(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{4}([^#].*?)$`)
@@ -50,7 +50,7 @@ func replaceHedding4(Text *string) {
 }
 
 /**
-*	Replace <h5> test </h5>
+*	Replace "*****test" => "<h5>test</h5>"
  */
 func replaceHedding5(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{5}([^#].*?)$`)
@@ -58,23 +58,32 @@ func replaceHedding5(Text *string) {
 }
 
 /**
-*	Replace <h6> test </h6>
+*	Replace "******test" => "<h6>test</h6>"
  */
 func replaceHedding6(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*#{6}([^#].*?)$`)
 	*Text = reg.ReplaceAllString(*Text, "<h6>$1</h6>")
 }
 
+/**
+*	Replace "*BOLD TEXT*" => "<strong>BOLD TEXT</strong>"
+ */
 func replaceBold(Text *string) {
 	reg := regexp.MustCompile(`\*([^\*].*?[^\*])\*`)
 	*Text = reg.ReplaceAllString(*Text, "<strong>$1</strong>")
 }
 
+/**
+*	Replace "*Italic TEXT*" => "<em>Italic TEXT</em>"
+ */
 func replaceItalic(Text *string) {
 	reg := regexp.MustCompile(`\*\*([^\*].*?[^\*])\*\*`)
 	*Text = reg.ReplaceAllString(*Text, "<em>$1</em>")
 }
 
+/**
+*	Replace "*text1 \n *text2" => "<ul><li>text1</li> \n <li>text2<\li><\ul>"
+ */
 func replaceUl(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*\*(.*?)$`)
 	*Text = reg.ReplaceAllString(*Text, "<ul><li>$1</li></ul>")
