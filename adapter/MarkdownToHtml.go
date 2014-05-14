@@ -13,6 +13,8 @@ func Convert(Text string) string {
 	replaceHedding1(&Text)
 	replaceItalic(&Text)
 	replaceBold(&Text)
+	replaceOl(&Text)
+	replaceUl(&Text)
 
 	return Text
 }
@@ -74,7 +76,7 @@ func replaceBold(Text *string) {
 }
 
 /**
-*	Replace "*Italic TEXT*" => "<em>Italic TEXT</em>"
+*	Replace "**Italic TEXT**" => "<em>Italic TEXT</em>"
  */
 func replaceItalic(Text *string) {
 	reg := regexp.MustCompile(`\*\*([^\*].*?[^\*])\*\*`)
@@ -99,4 +101,12 @@ func replaceOl(Text *string) {
 	*Text = reg.ReplaceAllString(*Text, "<ol><li>$1</li></ol>")
 	reg = regexp.MustCompile(`(?s)</ol>\s*<ol>`)
 	*Text = reg.ReplaceAllString(*Text, "\n")
+}
+
+/**
+*	Replace "[test link](www.google.com)" => "<a href=\"www.google.com\">test link</a>"
+ */
+func replaceLink(Text *string) {
+	reg := regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
+	*Text = reg.ReplaceAllString(*Text, "<a href=\"$2\">$1</a>")
 }

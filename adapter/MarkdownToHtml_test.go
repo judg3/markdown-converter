@@ -146,3 +146,13 @@ func TestReplaceOl(t *testing.T) {
 		t.Errorf("expeced: "+expextedText+"got: ", text)
 	}
 }
+
+func TestReplaceLink(t *testing.T) {
+	text := "[test link](www.google.com)"
+	replaceLink(&text)
+
+	expextedText := "<a href=\"www.google.com\">test link</a>"
+	if text != expextedText {
+		t.Errorf("expeced: "+expextedText+", got: ", text)
+	}
+}
