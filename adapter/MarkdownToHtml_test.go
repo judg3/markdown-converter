@@ -122,3 +122,27 @@ func TestReplaceUl(t *testing.T) {
 		t.Errorf("expeced: "+expextedText+"got: ", text)
 	}
 }
+
+func TestReplaceOl(t *testing.T) {
+	text := `
+	*test line 1
+	*test line 2
+	*test line 3
+	test
+	*test line 5
+	*test line 6
+	`
+
+	expextedText := `<ol><li>test line 1</li>
+<li>test line 2</li>
+<li>test line 3</li></ol>
+	test
+<ol><li>test line 5</li>
+<li>test line 6</li></ol>
+	`
+	replaceOl(&text)
+
+	if text != expextedText {
+		t.Errorf("expeced: "+expextedText+"got: ", text)
+	}
+}
