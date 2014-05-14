@@ -98,3 +98,27 @@ func TestReplaceItalic(t *testing.T) {
 		t.Errorf("expeced: blablabla <em>bold</em>, got: ", text)
 	}
 }
+
+func TestReplaceUl(t *testing.T) {
+	text := `
+	*test line 1
+	*test line 2
+	*test line 3
+	test
+	*test line 5
+	*test line 6
+	`
+
+	expextedText := `<ul><li>test line 1</li>
+<li>test line 2</li>
+<li>test line 3</li></ul>
+	test
+<ul><li>test line 5</li>
+<li>test line 6</li></ul>
+	`
+	replaceUl(&text)
+
+	if text != expextedText {
+		t.Errorf("expeced: "+expextedText+"got: ", text)
+	}
+}

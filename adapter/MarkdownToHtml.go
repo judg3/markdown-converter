@@ -74,3 +74,10 @@ func replaceItalic(Text *string) {
 	reg := regexp.MustCompile(`\*\*([^\*].*?[^\*])\*\*`)
 	*Text = reg.ReplaceAllString(*Text, "<em>$1</em>")
 }
+
+func replaceUl(Text *string) {
+	reg := regexp.MustCompile(`(?m)^\s*\*(.*?)$`)
+	*Text = reg.ReplaceAllString(*Text, "<ul><li>$1</li></ul>")
+	reg = regexp.MustCompile(`(?s)</ul>\s*<ul>`)
+	*Text = reg.ReplaceAllString(*Text, "\n")
+}
