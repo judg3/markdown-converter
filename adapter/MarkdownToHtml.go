@@ -94,10 +94,10 @@ func replaceUl(Text *string) {
 }
 
 /**
-*	Replace *text1 \n *text2 => <ol><li>text1</li> \n <li>text2<\li><\ol>
+*	Replace "-text1 \n -text2" => "<ol><li>text1</li> \n <li>text2<\li><\ol>"
  */
 func replaceOl(Text *string) {
-	reg := regexp.MustCompile(`(?m)^\s*\*(.*?)$`)
+	reg := regexp.MustCompile(`(?m)^\s*\-(.*?)$`)
 	*Text = reg.ReplaceAllString(*Text, "<ol><li>$1</li></ol>")
 	reg = regexp.MustCompile(`(?s)</ol>\s*<ol>`)
 	*Text = reg.ReplaceAllString(*Text, "\n")
