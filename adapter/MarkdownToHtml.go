@@ -94,7 +94,7 @@ func replaceUl(Text *string) {
 }
 
 /**
-*	Replace "*text1 \n *text2" => "<ol><li>text1</li> \n <li>text2<\li><\ol>"
+*	Replace *text1 \n *text2 => <ol><li>text1</li> \n <li>text2<\li><\ol>
  */
 func replaceOl(Text *string) {
 	reg := regexp.MustCompile(`(?m)^\s*\*(.*?)$`)
@@ -104,9 +104,17 @@ func replaceOl(Text *string) {
 }
 
 /**
-*	Replace "[test link](www.google.com)" => "<a href=\"www.google.com\">test link</a>"
+*	Replace [test link](www.google.com) => <a href="www.google.com">test link</a>
  */
 func replaceLink(Text *string) {
 	reg := regexp.MustCompile(`\[(.*?)\]\((.*?)\)`)
 	*Text = reg.ReplaceAllString(*Text, "<a href=\"$2\">$1</a>")
+}
+
+/**
+*	Replace "[[test link]](www.google.com/img.png)" => "<img src="www.google.com">"
+ */
+func replaceImg(Text *string) {
+	reg := regexp.MustCompile(`\[\[([0-9]*),([0-9]*)\]\]\((.*?)\)`)
+	*Text = reg.ReplaceAllString(*Text, "<img src=\"$3\" width=\"$1\" height=\"$2\">")
 }

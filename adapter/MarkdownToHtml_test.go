@@ -156,3 +156,13 @@ func TestReplaceLink(t *testing.T) {
 		t.Errorf("expeced: "+expextedText+", got: ", text)
 	}
 }
+
+func TestReplaceImg(t *testing.T) {
+	text := "[[300,300]](www.google.com)"
+	replaceImg(&text)
+
+	expextedText := "<img src=\"www.google.com\" width=\"300\" height=\"300\">"
+	if text != expextedText {
+		t.Errorf("expeced: "+expextedText+", got: ", text)
+	}
+}
